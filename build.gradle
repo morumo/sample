@@ -1,0 +1,54 @@
+/**
+ * compass settings
+ */
+apply plugin:'jetty'
+apply plugin:'compass'
+buildscript {
+	repositories {
+		mavenCentral()
+		maven { url 'http://dl.bintray.com/robfletcher/gradle-plugins' }
+	}
+	dependencies {
+		classpath 'org.jruby:jruby-complete:1.7.3'
+		classpath 'org.gradle.plugins:gradle-compass:1.0.7'
+		classpath 'com.eriwen:gradle-js-plugin:1.12.0'
+	}
+}
+repositories {
+	mavenCentral()
+}
+compass {
+	debugInfo = false
+	cssDir = file('src/main/webapp/css')
+	sassDir = file('src/main/sass')
+}
+
+/**
+ * javascript settings
+ */
+apply plugin:'js'
+javascript.source {
+	dev {
+		js {
+			srcDir 'src/main/js'
+			include '**/*.js'
+			exclude '**/*.min.js'
+		}
+	}
+}
+combineJs {
+	source = javascript.source.dev.js.files
+	dest = file("src/main/webapp/js/sample.js")
+}
+minifyJs {
+	source = combineJs
+	dest = file("src/main/webapp/js/sample.min.js")
+	closure {
+		warningLevel = 'QUIET'
+	}
+}
+
+processResources.inputs.files compileSass
+jettyRun.dependsOn minifyJs, watchSass
+clean.dependsOn cleanCompileSass
+

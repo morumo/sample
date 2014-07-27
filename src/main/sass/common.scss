@@ -30,12 +30,58 @@ html {
 		@include transition(left 0.5s linear);
 	}
 }
+/* header */
 #header {
 	@include full-area;
-	height: 30px;
-	background-color: silver;
-	text-align: center;
+	@include background(linear-gradient(top, #dfdfdf, #8f8f8f));
+	position: relative;
+	border-bottom: solid 1px #000;
+	height: 22px;
+	/*text-align: center;*/
+	.apple {
+		position: relative;
+		display: inline-block;
+		width: 40px;
+		height: 100%;
+		margin: 0px 0px 0px 10px;
+		content: '';
+		&:before {
+			position: absolute;
+			width: 16px;
+			height: 100%;
+			content: ' ';
+			top: 0px;
+			left: 12px;
+			background-image: url(../images/apple.png);
+			padding-top: 1px;
+			padding-bottom: 1px;
+			@include background-size(16px 20px);
+			background-repeat: no-repeat;
+		}
+		&:hover {
+			@include background(linear-gradient(top, #5f85f8, #2763f7));
+			&:before {
+				@include filter(invert(100%));
+			}
+		}
+	}
+	.header-btn {
+		position: relative;
+		display: inline-block;
+		height: 100%;
+		top: -5px;
+		padding: 1px 12px;
+		line-height: 24px;
+		&.bold {
+			font-weight: bold;
+		}
+		&:hover {
+			@include background(linear-gradient(top, #5f85f8, #2763f7));
+			color: white;
+		}
+	}
 }
+/* body */
 #body {
 	width: 100%;
 	padding: 10px 0px;
@@ -85,3 +131,4 @@ input[type="radio"] {
 		}
 	}
 }
+

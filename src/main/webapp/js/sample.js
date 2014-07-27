@@ -14,7 +14,6 @@ var MainView = Backbone.View.extend({
 		this.trigger('click:btn');
 	},
 	changeRadio: function(e){
-		alert('ラジオチェンジ');
 	}
 });
 var SliderView = Backbone.View.extend({
